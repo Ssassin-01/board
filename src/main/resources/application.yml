@@ -15,3 +15,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+jwt:
+  secret: bG9uZ19yYW5kb21fbGVuX3NlY3JldF9rZXlfYW5kX2tleV93aXRoX3NwZWNpYWxfY2hhcmFjdGVycw==
+  expiration: 3600000 # 1시간 (밀리초)
+
+logging:
+  level:
+    org.springframework.security: DEBUG
