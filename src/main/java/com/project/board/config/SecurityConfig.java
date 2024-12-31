@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll() // 인증 없이 접근 가능
                         .requestMatchers("/api/test/public").permitAll()
+                        .requestMatchers("/api/members/signup").permitAll()
                         .requestMatchers("/api/test/protected").authenticated()
                         .anyRequest().authenticated()
                 )
