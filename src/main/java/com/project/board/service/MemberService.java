@@ -1,8 +1,10 @@
 package com.project.board.service;
 
+import com.project.board.dto.LoginRequestDTO;
 import com.project.board.dto.UserRequestDTO;
 import com.project.board.entity.Member;
 import com.project.board.repository.MemberRepository;
+import com.project.board.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public void registerMember(UserRequestDTO userRequestDTO) {
         // 중복 사용자명 확인
@@ -36,5 +39,15 @@ public class MemberService {
                 .build();
 
         memberRepository.save(member);
+    }
+
+    public String loginMember(LoginRequestDTO requestDTO) {
+        Member member = memberRepository.findByUsername(requestDTO.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        if(!passwordEncoder.matches(requestDTO.getPassword(), member.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        return jwtTokenProvider.generateToken(member.getUsername());
     }
 }
