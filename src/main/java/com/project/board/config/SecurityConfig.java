@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll() // 인증 없이 접근 가능
+                        .requestMatchers("/api/tests/**").permitAll() // 내 테스트용
                         .requestMatchers("/api/test/public").permitAll()
                         .requestMatchers("/api/members/signup", "/api/members/login").permitAll()
                         .requestMatchers("/api/test/protected").authenticated()
