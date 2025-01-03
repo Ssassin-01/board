@@ -1,6 +1,7 @@
 package com.project.board.service;
 
 import com.project.board.dto.LoginRequestDTO;
+import com.project.board.dto.MemberDTO;
 import com.project.board.dto.UserRequestDTO;
 import com.project.board.entity.Member;
 import com.project.board.repository.MemberRepository;
@@ -49,5 +50,12 @@ public class MemberService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         return jwtTokenProvider.generateToken(member.getUsername());
+    }
+
+    public MemberDTO getMemberInfo(String username) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(()-> new IllegalArgumentException("해당 유저를 찾을 수 없습니다." + username));
+
+        return new MemberDTO(member.getId(), member.getUsername(), member.getPassword());
     }
 }

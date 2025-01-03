@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class HelloController {
+
     @GetMapping("/hello")
-    public String helloWorld() {
-        return "Hello, World";
+    public String hello() {
+        return "Hello, Authenticated User!";
     }
 }

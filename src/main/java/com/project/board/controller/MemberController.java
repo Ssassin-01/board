@@ -1,14 +1,14 @@
 package com.project.board.controller;
 
 import com.project.board.dto.LoginRequestDTO;
+import com.project.board.dto.MemberDTO;
 import com.project.board.dto.UserRequestDTO;
 import com.project.board.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/members")
@@ -27,5 +27,15 @@ public class MemberController {
     public ResponseEntity<String> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         String token = memberService.loginMember(loginRequestDTO);
         return ResponseEntity.ok(token);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<MemberDTO> getMemberInfo(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            throw new IllegalStateException("인증된 사용자가 없습니다.");
+        }
+        String username = userDetails.getUsername();
+        MemberDTO memberDto = memberService.getMemberInfo(username);
+        return ResponseEntity.ok(memberDto);
     }
 }

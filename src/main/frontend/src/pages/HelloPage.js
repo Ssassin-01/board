@@ -7,10 +7,19 @@ const HelloPage = () => {
     useEffect(() => {
         const fetchHelloWorld = async () => {
             try {
-                const response = await api.get('/hello');
+                // 로컬 스토리지에서 토큰 가져오기
+                const token = localStorage.getItem('token');
+
+                const response = await api.get('/hello', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
                 setMessage(response.data);
             } catch (error) {
                 console.error('Error fetching Hello World:', error);
+                setMessage('Failed to fetch Hello World');
             }
         };
 
@@ -19,8 +28,8 @@ const HelloPage = () => {
 
     return (
         <div>
-            <h1>Spring Boot + React</h1>
-            <h2>{message}</h2>
+            <h1>Hello Page</h1>
+            <p>{message}</p>
         </div>
     );
 };
