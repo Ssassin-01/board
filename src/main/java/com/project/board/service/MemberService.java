@@ -61,4 +61,30 @@ public class MemberService {
 
         return new MemberDTO(member.getId(), member.getUsername(), member.getPassword());
     }
+
+
+    public MemberUpdateResponseDTO updateMemberInfo(String username, MemberUpdateDTO updateDTO) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다." + username));
+
+        if(updateDTO.getUsername() != null) {
+            member.setUsername(updateDTO.getUsername());
+        }
+
+        if(updateDTO.getEmail() != null) {
+            member.setEmail(updateDTO.getEmail());
+        }
+
+        if(updateDTO.getPassword() != null) {
+            member.setPassword(passwordEncoder.encode(updateDTO.getPassword()));
+        }
+
+        Member res = memberRepository.save(member);
+        return MemberUpdateResponseDTO.builder()
+                .id(res.getId())
+                .username(res.getUsername())
+                .email(res.getEmail())
+                .message("회원정보 수정 완료")
+                .build();
+    }
 }

@@ -37,4 +37,17 @@ public class MemberController {
         MemberDTO memberDto = memberService.getMemberInfo(username);
         return ResponseEntity.ok(memberDto);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<MemberUpdateResponseDTO> updateMemberInfo(@AuthenticationPrincipal UserDetails userDetails,
+                                                                    @RequestBody MemberUpdateDTO memberUpdateDTO) {
+        if(userDetails == null) {
+            throw new IllegalArgumentException("인증된 사용자가 없습니다.");
+        }
+
+        String username = userDetails.getUsername();
+        MemberUpdateResponseDTO res = memberService.updateMemberInfo(username, memberUpdateDTO);
+
+        return ResponseEntity.ok(res);
+    }
 }
