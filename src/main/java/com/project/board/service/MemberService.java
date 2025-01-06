@@ -87,4 +87,13 @@ public class MemberService {
                 .message("회원정보 수정 완료")
                 .build();
     }
+
+    public MemberDeleteResponseDTO deleteMemberInfo(String username) {
+        Member member =  memberRepository.findByUsername(username)
+                .orElseThrow(()-> new IllegalArgumentException("해당유저가 존재하지 않습니다." + username));
+
+        memberRepository.delete(member);
+
+        return new MemberDeleteResponseDTO("회원 삭제 성공", 200);
+    }
 }

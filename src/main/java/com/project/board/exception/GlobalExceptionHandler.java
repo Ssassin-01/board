@@ -16,6 +16,12 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponseDTO(ex.getMessage(), 400));
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponseDTO> handleIllegalStateException(IllegalStateException ex) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorResponseDTO(ex.getMessage(), 401));
+    }
     // ✅ 접근 권한 없음 예외 처리 (403)
     @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
     public ResponseEntity<ErrorResponseDTO> handleAccessDeniedException(org.springframework.security.access.AccessDeniedException ex) {

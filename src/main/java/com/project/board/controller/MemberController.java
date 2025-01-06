@@ -50,4 +50,14 @@ public class MemberController {
 
         return ResponseEntity.ok(res);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<MemberDeleteResponseDTO> deleteMemberInfo(@AuthenticationPrincipal UserDetails userDetails) {
+        if(userDetails == null) {
+            throw new IllegalStateException("인증된 사용자가 아닙니다.");
+        }
+        String username = userDetails.getUsername();
+        MemberDeleteResponseDTO res = memberService.deleteMemberInfo(username);
+        return ResponseEntity.ok(res);
+    }
 }
