@@ -42,7 +42,7 @@ public class MemberService {
         return new SignupResponseDTO("회원가입이 성공적으로 완료되었습니다.", 201);
     }
 
-    public LoginResponseDTO  loginMember(LoginRequestDTO requestDTO) {
+    public LoginResponseDTO loginMember(LoginRequestDTO requestDTO) {
         Member member = memberRepository.findByUsername(requestDTO.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
