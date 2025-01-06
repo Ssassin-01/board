@@ -1,8 +1,6 @@
 package com.project.board.service;
 
-import com.project.board.dto.LoginRequestDTO;
-import com.project.board.dto.MemberDTO;
-import com.project.board.dto.UserRequestDTO;
+import com.project.board.dto.*;
 import com.project.board.entity.Member;
 import com.project.board.repository.MemberRepository;
 import com.project.board.security.JwtTokenProvider;
@@ -18,7 +16,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public void registerMember(UserRequestDTO userRequestDTO) {
+    public SignupResponseDTO registerMember(UserRequestDTO userRequestDTO) {
         // 중복 사용자명 확인
         if (memberRepository.findByUsername(userRequestDTO.getUsername()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 사용자 이름입니다.");
@@ -40,16 +38,21 @@ public class MemberService {
                 .build();
 
         memberRepository.save(member);
+
+        return new SignupResponseDTO("회원가입이 성공적으로 완료되었습니다.", 201);
     }
 
-    public String loginMember(LoginRequestDTO requestDTO) {
+    public LoginResponseDTO  loginMember(LoginRequestDTO requestDTO) {
         Member member = memberRepository.findByUsername(requestDTO.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         if(!passwordEncoder.matches(requestDTO.getPassword(), member.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        return jwtTokenProvider.generateToken(member.getUsername());
+
+        String token = jwtTokenProvider.generateToken(member.getUsername());
+
+        return new LoginResponseDTO(token, member.getUsername(), "USER");
     }
 
     public MemberDTO getMemberInfo(String username) {

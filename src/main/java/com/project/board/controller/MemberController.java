@@ -1,10 +1,9 @@
 package com.project.board.controller;
 
-import com.project.board.dto.LoginRequestDTO;
-import com.project.board.dto.MemberDTO;
-import com.project.board.dto.UserRequestDTO;
+import com.project.board.dto.*;
 import com.project.board.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,15 +17,15 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> registerMember(@RequestBody UserRequestDTO userRequestDTO) {
-        memberService.registerMember(userRequestDTO);
-        return ResponseEntity.ok("회원가입이 성공적으로 완료되었습니다.");
+    public ResponseEntity<SignupResponseDTO> registerMember(@RequestBody UserRequestDTO userRequestDTO) {
+        SignupResponseDTO response = memberService.registerMember(userRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        String token = memberService.loginMember(loginRequestDTO);
-        return ResponseEntity.ok(token);
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        LoginResponseDTO response = memberService.loginMember(loginRequestDTO);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/me")
