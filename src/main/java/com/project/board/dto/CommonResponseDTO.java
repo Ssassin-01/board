@@ -1,13 +1,14 @@
 package com.project.board.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class MemberDeleteResponseDTO {
+@Builder
+public class CommonResponseDTO<T> {
     private String message;
     private int status;
+    private T data;
 }

@@ -53,13 +53,13 @@ public class JwtTokenProvider {
             Jwts.parser()
                     .setSigningKey(Base64.getDecoder().decode(secret))
                     .parseClaimsJws(token);
-            return true; // 유효하면 true 반환
+            return true; // 유효한 토큰
         } catch (SignatureException ex) {
-            throw new RuntimeException("Invalid JWT signature");
+            throw ex; // 서명 오류
         } catch (MalformedJwtException ex) {
-            throw new RuntimeException("Invalid JWT token");
+            throw ex; // 잘못된 토큰
         } catch (ExpiredJwtException ex) {
-            throw new RuntimeException("Expired JWT token");
+            throw ex; // 만료된 토큰
         }
     }
 }

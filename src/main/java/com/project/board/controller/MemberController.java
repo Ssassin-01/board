@@ -17,47 +17,47 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponseDTO> registerMember(@RequestBody UserRequestDTO userRequestDTO) {
-        SignupResponseDTO response = memberService.registerMember(userRequestDTO);
+    public ResponseEntity<CommonResponseDTO<Void>> registerMember(@RequestBody MemberRequestDTO requestDTO) {
+        CommonResponseDTO<Void> response = memberService.registerMember(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO response = memberService.loginMember(loginRequestDTO);
+    public ResponseEntity<CommonResponseDTO<LoginResponseDTO>> login(@RequestBody MemberRequestDTO requestDTO) {
+        CommonResponseDTO<LoginResponseDTO> response = memberService.loginMember(requestDTO);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/me")
-    public ResponseEntity<MemberDTO> getMemberInfo(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<CommonResponseDTO<MemberDTO>> getMemberInfo(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
             throw new IllegalStateException("인증된 사용자가 없습니다.");
         }
         String username = userDetails.getUsername();
-        MemberDTO memberDto = memberService.getMemberInfo(username);
+        CommonResponseDTO<MemberDTO> memberDto = memberService.getMemberInfo(username);
         return ResponseEntity.ok(memberDto);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<MemberUpdateResponseDTO> updateMemberInfo(@AuthenticationPrincipal UserDetails userDetails,
-                                                                    @RequestBody MemberUpdateDTO memberUpdateDTO) {
+    public ResponseEntity<CommonResponseDTO<MemberDTO>> updateMemberInfo(@AuthenticationPrincipal UserDetails userDetails,
+                                                                    @RequestBody MemberUpdateRequestDTO memberUpdateDTO) {
         if(userDetails == null) {
             throw new IllegalArgumentException("인증된 사용자가 없습니다.");
         }
 
         String username = userDetails.getUsername();
-        MemberUpdateResponseDTO res = memberService.updateMemberInfo(username, memberUpdateDTO);
+        CommonResponseDTO<MemberDTO> res = memberService.updateMemberInfo(username, memberUpdateDTO);
 
         return ResponseEntity.ok(res);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<MemberDeleteResponseDTO> deleteMemberInfo(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<CommonResponseDTO<Void>> deleteMemberInfo(@AuthenticationPrincipal UserDetails userDetails) {
         if(userDetails == null) {
             throw new IllegalStateException("인증된 사용자가 아닙니다.");
         }
         String username = userDetails.getUsername();
-        MemberDeleteResponseDTO res = memberService.deleteMemberInfo(username);
+        CommonResponseDTO<Void> res = memberService.deleteMemberInfo(username);
         return ResponseEntity.ok(res);
     }
 }

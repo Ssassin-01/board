@@ -1,10 +1,12 @@
 package com.project.board.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class LoginResponseDTO {
     private String token;
     private String username;

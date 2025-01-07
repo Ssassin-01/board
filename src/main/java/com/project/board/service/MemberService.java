@@ -16,33 +16,36 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public SignupResponseDTO registerMember(UserRequestDTO userRequestDTO) {
+    public CommonResponseDTO<Void> registerMember(MemberRequestDTO requestDTO) {
         // 중복 사용자명 확인
-        if (memberRepository.findByUsername(userRequestDTO.getUsername()).isPresent()) {
+        if (memberRepository.findByUsername(requestDTO.getUsername()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 사용자 이름입니다.");
         }
 
         // 중복 이메일 확인
-        if (memberRepository.findByEmail(userRequestDTO.getEmail()).isPresent()) {
+        if (memberRepository.findByEmail(requestDTO.getEmail()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
 
         // 비밀번호 암호화
-        String encodedPassword = passwordEncoder.encode(userRequestDTO.getPassword());
+        String encodedPassword = passwordEncoder.encode(requestDTO.getPassword());
 
         // 사용자 저장
         Member member = Member.builder()
-                .username(userRequestDTO.getUsername())
-                .email(userRequestDTO.getEmail())
+                .username(requestDTO.getUsername())
+                .email(requestDTO.getEmail())
                 .password(encodedPassword)
                 .build();
 
         memberRepository.save(member);
 
-        return new SignupResponseDTO("회원가입이 성공적으로 완료되었습니다.", 201);
+        return CommonResponseDTO.<Void>builder()
+                .message("회원가입이 성공적으로 완료되었습니다.")
+                .status(201)
+                .build();
     }
 
-    public LoginResponseDTO loginMember(LoginRequestDTO requestDTO) {
+    public CommonResponseDTO<LoginResponseDTO> loginMember(MemberRequestDTO requestDTO) {
         Member member = memberRepository.findByUsername(requestDTO.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
@@ -52,18 +55,29 @@ public class MemberService {
 
         String token = jwtTokenProvider.generateToken(member.getUsername());
 
-        return new LoginResponseDTO(token, member.getUsername(), "USER");
+        return CommonResponseDTO.<LoginResponseDTO>builder()
+                .message("로그인 성공!")
+                .status(200)
+                .data(LoginResponseDTO.builder()
+                        .token(token)
+                        .username(member.getUsername())
+                        .role("USER")
+                        .build()
+                ).build();
     }
 
-    public MemberDTO getMemberInfo(String username) {
+    public CommonResponseDTO<MemberDTO> getMemberInfo(String username) {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(()-> new IllegalArgumentException("해당 유저를 찾을 수 없습니다." + username));
 
-        return new MemberDTO(member.getId(), member.getUsername(), member.getPassword());
+        return CommonResponseDTO.<MemberDTO>builder()
+                .message("회원 정보 조회 성공")
+                .status(200)
+                .data(new MemberDTO(member.getId(), member.getUsername(),member.getEmail(),member.getPassword()))
+                .build();
     }
 
-
-    public MemberUpdateResponseDTO updateMemberInfo(String username, MemberUpdateDTO updateDTO) {
+    public CommonResponseDTO<MemberDTO> updateMemberInfo(String username, MemberUpdateRequestDTO updateDTO) {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다." + username));
 
@@ -80,20 +94,22 @@ public class MemberService {
         }
 
         Member res = memberRepository.save(member);
-        return MemberUpdateResponseDTO.builder()
-                .id(res.getId())
-                .username(res.getUsername())
-                .email(res.getEmail())
+        return CommonResponseDTO.<MemberDTO>builder()
                 .message("회원정보 수정 완료")
+                .status(200)
+                .data(new MemberDTO(res.getId(), res.getUsername(), res.getEmail(), res.getPassword()))
                 .build();
     }
 
-    public MemberDeleteResponseDTO deleteMemberInfo(String username) {
+    public CommonResponseDTO<Void> deleteMemberInfo(String username) {
         Member member =  memberRepository.findByUsername(username)
                 .orElseThrow(()-> new IllegalArgumentException("해당유저가 존재하지 않습니다." + username));
 
         memberRepository.delete(member);
 
-        return new MemberDeleteResponseDTO("회원 삭제 성공", 200);
+        return CommonResponseDTO.<Void>builder()
+                .message("회원삭제 성공")
+                .status(200)
+                .build();
     }
 }
