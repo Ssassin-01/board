@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MemberTestRepository extends JpaRepository<TestMember, Long> {
+public interface TestMemberRepository extends JpaRepository<TestMember, Long> {
     Optional<TestMember> findByUsername(String username);
     Optional<TestMember> findByEmail(String email);
 }

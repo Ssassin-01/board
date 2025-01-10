@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../style/AuthForm.css';
 
-const AuthForm = ({ onSubmit, title }) => {
+const AuthForm = ({ onSubmit, title, showEmail = false }) => {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -10,10 +10,7 @@ const AuthForm = ({ onSubmit, title }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = (e) => {
@@ -28,17 +25,17 @@ const AuthForm = ({ onSubmit, title }) => {
                 type="text"
                 name="username"
                 placeholder="Username"
-                onChange={handleChange}
                 value={formData.username}
+                onChange={handleChange}
                 required
             />
-            {title === 'Sign Up' && (
+            {showEmail && (
                 <input
                     type="email"
                     name="email"
                     placeholder="Email"
-                    onChange={handleChange}
                     value={formData.email}
+                    onChange={handleChange}
                     required
                 />
             )}
@@ -46,8 +43,8 @@ const AuthForm = ({ onSubmit, title }) => {
                 type="password"
                 name="password"
                 placeholder="Password"
-                onChange={handleChange}
                 value={formData.password}
+                onChange={handleChange}
                 required
             />
             <button type="submit">{title}</button>

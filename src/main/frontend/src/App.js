@@ -1,10 +1,13 @@
 import './App.css';
-import AppRoutes from "./routes/routes";
+import AppRoutes from "./routes/AppRoutes";
+import {AuthProvider} from "./context/AuthContext";
 
 const App = () => {
   return (
       <div>
-        <AppRoutes />
+          <AuthProvider>
+              <AppRoutes />
+          </AuthProvider>
       </div>
   );
 };
