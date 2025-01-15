@@ -29,4 +29,7 @@ public class Comment {
 
     @Column(nullable = false)
     private LocalDateTime createAt;
+
+    @Column(nullable = true)
+    private LocalDateTime updatedAt;
 }
