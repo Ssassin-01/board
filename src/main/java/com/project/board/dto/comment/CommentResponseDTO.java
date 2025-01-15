@@ -1,4 +1,4 @@
-package com.project.board.dto.post;
+package com.project.board.dto.comment;
 
 import lombok.*;
 
@@ -9,11 +9,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostResponseDTO {
+public class CommentResponseDTO {
     private Long id;
-    private String title;
     private String content;
     private String author;
+    private Long postId;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

@@ -11,13 +11,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Post {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String title;
 
     @Column(nullable = false)
     private String content;
@@ -26,9 +23,10 @@ public class Post {
     @JoinColumn(name = "author_id", nullable = false)
     private Member author;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
-    @Column(nullable = true)
-    private LocalDateTime updatedAt; // 수정 시간 추가
+    @Column(nullable = false)
+    private LocalDateTime createAt;
 }

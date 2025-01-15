@@ -1,7 +1,9 @@
 package com.project.board.service;
 
+import com.project.board.dto.post.PostDeleteResponseDTO;
 import com.project.board.dto.post.PostRequestDTO;
 import com.project.board.dto.post.PostResponseDTO;
+import com.project.board.dto.post.PostUpdateRequestDTO;
 import com.project.board.entity.Member;
 import com.project.board.entity.Post;
 import com.project.board.repository.MemberRepository;
@@ -34,13 +36,15 @@ public class PostService {
         postRepository.save(post);
 
         //PostResponseDTO로 리턴시키기
-        return new PostResponseDTO(
-                post.getId(),
-                post.getTitle(),
-                post.getContent(),
-                author.getUsername(),
-                post.getCreatedAt()
-        );
+        return PostResponseDTO.
+                builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .author(post.getAuthor().getUsername())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(null)
+                .build();
     }
 
 
@@ -69,5 +73,41 @@ public class PostService {
                 .author(post.getAuthor().getUsername())
                 .createdAt(post.getCreatedAt())
                 .build();
+    }
+
+    public PostResponseDTO updatePost(Long id, PostUpdateRequestDTO requestDTO, String username) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+
+        if(!post.getAuthor().getUsername().equals(username)) {
+            throw new IllegalArgumentException("게시물을 수정할 권한이 없습니다.");
+        }
+
+        post.setTitle(requestDTO.getTitle());
+        post.setContent(requestDTO.getContent());
+        post.setUpdatedAt(LocalDateTime.now());
+
+        postRepository.save(post);
+
+        return PostResponseDTO.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .author(post.getAuthor().getUsername())
+                .updatedAt(post.getUpdatedAt())
+                .build();
+    }
+
+    public PostDeleteResponseDTO deletePost(Long id, String username) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+        if(!post.getAuthor().getUsername().equals(username)) {
+            throw new IllegalArgumentException("게시물을 삭제할 권한이 없습니다.");
+        }
+
+        postRepository.delete(post);
+        return new PostDeleteResponseDTO("게시물이 성공적으로 삭제되었습니다.", 100);
     }
 }
