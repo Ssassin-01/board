@@ -35,11 +35,9 @@ public class MemberController {
             System.out.println("userDetails is null!");
             throw new IllegalStateException("인증된 사용자가 없습니다.");
         }
-        System.out.println("Username from UserDetails: " + userDetails.getUsername());
 
         String username = userDetails.getUsername();
         CommonResponseDTO<MemberDTO> memberDto = memberService.getMemberInfo(username);
-        System.out.println("Member info fetched successfully: " + memberDto.getData().getUsername());
         return ResponseEntity.ok(memberDto);
     }
 

@@ -51,11 +51,10 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/tests/signUp", "/api/tests/login").permitAll() // 내 테스트용
+                        .requestMatchers("/api/tests/signUp", "/api/tests/login", "/api/posts",
+                                "/api/members/signup", "/api/members/login").permitAll() // 내 테스트용
                         .requestMatchers("/api/test/public").permitAll()
-                        .requestMatchers("/api/members/signup", "/api/members/login").permitAll()
                         .requestMatchers("/api/test/protected").authenticated()
-                        .requestMatchers("/api/hello").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
