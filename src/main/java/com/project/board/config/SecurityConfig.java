@@ -51,8 +51,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/tests/signUp", "/api/tests/login", "/api/posts",
-                                "/api/members/signup", "/api/members/login", "/api/comments/**").permitAll()
+                        .requestMatchers("/api/tests/create", "/api/tests/login", "/api/tests/posts", "/api/tests/posts", "/api/tests/comments/**").permitAll()
+                        .requestMatchers("/api/posts", "/api/members/signup", "/api/members/login", "/api/comments/**").permitAll()
                         .requestMatchers("/api/test/public").permitAll()
                         .requestMatchers("/api/test/protected").authenticated()
                         .anyRequest().authenticated()
