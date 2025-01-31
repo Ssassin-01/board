@@ -11,6 +11,7 @@ import MyPage from '../pages/MyPage';
 import SignUpPage from '../pages/SignupPage';
 import MemberUpdatePage from '../pages/MemberUpdatePage';
 import MemberDeletePage from '../pages/MemberDeletePage';
+import HelloPage from '../pages/All/HelloPage';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -31,6 +32,7 @@ const ProtectedRoute = ({ children }) => {
 const AppRoutes = () => (
   <Router>
     <Routes>
+      <Route path="/" element={<HelloPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route

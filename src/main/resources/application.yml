@@ -16,10 +16,24 @@ spring:
       hibernate:
         format_sql: true
 
+  data:
+    redis: # `spring.data.redis`를 사용
+      host: localhost
+      port: 6379
+      password: # Redis 비밀번호 (없으면 비워둠)
+      timeout: 6000 # 연결 타임아웃 (밀리초)
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+
 jwt:
   secret: bG9uZ19yYW5kb21fbGVuX3NlY3JldF9rZXlfYW5kX2tleV93aXRoX3NwZWNpYWxfY2hhcmFjdGVycw==
   expiration: 3600000 # 1시간 (밀리초)
+  refresh-expiration: 86400000 # 1일 (밀리초)
 
 logging:
   level:
     org.springframework.security: DEBUG
+    org.springframework.data: DEBUG

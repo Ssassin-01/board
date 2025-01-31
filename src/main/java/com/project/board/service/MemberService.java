@@ -5,6 +5,7 @@ import com.project.board.entity.Member;
 import com.project.board.repository.MemberRepository;
 import com.project.board.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final RedisService redisService;
 
     public CommonResponseDTO<Void> registerMember(MemberRequestDTO requestDTO) {
         // 중복 사용자명 확인
@@ -43,27 +44,6 @@ public class MemberService {
                 .message("회원가입이 성공적으로 완료되었습니다.")
                 .status(201)
                 .build();
-    }
-
-    public CommonResponseDTO<LoginResponseDTO> loginMember(MemberRequestDTO requestDTO) {
-        Member member = memberRepository.findByUsername(requestDTO.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-
-        if(!passwordEncoder.matches(requestDTO.getPassword(), member.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-
-        String token = jwtTokenProvider.generateToken(member.getUsername());
-
-        return CommonResponseDTO.<LoginResponseDTO>builder()
-                .message("로그인 성공!")
-                .status(200)
-                .data(LoginResponseDTO.builder()
-                        .token(token)
-                        .username(member.getUsername())
-                        .role("USER")
-                        .build()
-                ).build();
     }
 
     public CommonResponseDTO<MemberDTO> getMemberInfo(String username) {

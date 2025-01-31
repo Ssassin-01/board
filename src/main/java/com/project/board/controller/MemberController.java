@@ -2,8 +2,11 @@ package com.project.board.controller;
 
 import com.project.board.dto.*;
 import com.project.board.service.MemberService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,12 +23,6 @@ public class MemberController {
     public ResponseEntity<CommonResponseDTO<Void>> registerMember(@RequestBody MemberRequestDTO requestDTO) {
         CommonResponseDTO<Void> response = memberService.registerMember(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<CommonResponseDTO<LoginResponseDTO>> login(@RequestBody MemberRequestDTO requestDTO) {
-        CommonResponseDTO<LoginResponseDTO> response = memberService.loginMember(requestDTO);
-        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/me")
