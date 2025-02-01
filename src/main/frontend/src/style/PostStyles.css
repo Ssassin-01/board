@@ -1,0 +1,101 @@
+/* 🌟 전체 페이지 공통 스타일 */
+.post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+/* 🌟 제목 스타일 */
+.post-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* 🌟 게시글 목록 스타일 */
+.post-list {
+  list-style: none;
+  padding: 0;
+  width: 80%;
+  max-width: 600px;
+}
+
+.post-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.post-item:hover {
+  background: #e9ecef;
+}
+
+/* 🌟 게시글 내용 스타일 */
+.post-author {
+  font-size: 14px;
+  color: #555;
+}
+
+.post-content {
+  font-size: 16px;
+  color: #222;
+  margin-top: 10px;
+}
+
+/* 🌟 버튼 공통 스타일 */
+.post-btn {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin: 5px;
+}
+
+.post-btn:hover {
+  background-color: #0056b3;
+}
+
+/* ❌ 삭제 버튼 스타일 */
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #b52b3a;
+}
+
+/* 🌟 게시글 작성/수정 폼 스타일 */
+.post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 500px;
+}
+
+.post-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.post-input:focus {
+  outline: none;
+  border-color: #007bff;
+}

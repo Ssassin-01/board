@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api/axiosInstance';
+import api from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
-import '../style/AuthStyles.css';
+import '../../style/AuthStyles.css';
 
 const Profile = () => {
   const [user, setUser] = useState(null);

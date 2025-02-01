@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import api from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
-import api from './../api/axiosInstance';
-import '../style/AuthStyles.css';
+import '../../style/AuthStyles.css';
 
-const SignUpPage = () => {
+const UpdateProfilePage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
   });
@@ -19,25 +18,17 @@ const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/members/signup', formData);
-      alert('회원가입 성공! 로그인 페이지로 이동');
-      navigate('/login');
+      await api.put('/members/update', formData);
+      alert('회원정보 수정 완료!');
+      navigate('/profile');
     } catch (error) {
-      alert(error.response?.data?.message || '회원가입 실패');
+      alert(error.response?.data?.message || '회원정보 실패');
     }
   };
-
   return (
     <div className="auth-container">
-      <h2 className="auth-title">회원가입</h2>
+      <h2 className="auth-title">회원정보 수정</h2>
       <form className="auth-card" onSubmit={handleSubmit}>
-        <input
-          className="auth-input"
-          type="text"
-          name="username"
-          placeholder="아이디"
-          onChange={handleChange}
-        />
         <input
           className="auth-input"
           type="email"
@@ -49,15 +40,15 @@ const SignUpPage = () => {
           className="auth-input"
           type="password"
           name="password"
-          placeholder="비밀번호"
+          placeholder="패스워드"
           onChange={handleChange}
         />
         <button className="auth-btn" type="submit">
-          회원가입
+          수정하기
         </button>
       </form>
     </div>
   );
 };
 
-export default SignUpPage;
+export default UpdateProfilePage;
