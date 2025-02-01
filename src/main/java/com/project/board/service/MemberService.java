@@ -15,7 +15,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RedisService redisService;
 
     public CommonResponseDTO<Void> registerMember(MemberRequestDTO requestDTO) {
         // 중복 사용자명 확인
@@ -60,6 +59,13 @@ public class MemberService {
     public CommonResponseDTO<MemberDTO> updateMemberInfo(String username, MemberUpdateRequestDTO updateDTO) {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다." + username));
+
+        if(updateDTO.getEmail() != null && !updateDTO.getEmail().equals(member.getEmail())) {
+            boolean emailExists = memberRepository.findByEmail(updateDTO.getEmail()).isPresent();
+            if(emailExists) {
+                throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+            }
+        }
 
         if(updateDTO.getUsername() != null) {
             member.setUsername(updateDTO.getUsername());
