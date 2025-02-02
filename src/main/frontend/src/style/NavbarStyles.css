@@ -1,0 +1,80 @@
+/* 전체 NavBar 스타일 */
+.navbar {
+  background: #18191a; /* 검정 테마 */
+  padding: 10px 0; /* 상하 패딩 */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* NavBar 내부 컨테이너 */
+.navbar-container {
+  width: 100%;
+  min-width: 900px;
+  /* max-width: 1200px; 고정된 최대 너비 */
+  margin: 0 auto; /* 가운데 정렬 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* 좌우 여백 */
+}
+
+/* NavBar 왼쪽 (로고 및 타이틀) */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-logo {
+  width: 40px;
+  height: 40px;
+}
+
+.navbar-title {
+  font-size: 24px;
+  color: #e4e6eb;
+  font-weight: bold;
+}
+
+/* NavBar 오른쪽 (버튼 링크들) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: #e4e6eb;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.navbar-link:hover {
+  background: #3a3b3c;
+  color: #007bff;
+}
+
+/* 게시물 작성 버튼 (+ 버튼) */
+.navbar-create-btn {
+  background: #007bff; /* 파란색 버튼 */
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%; /* 원형 버튼 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-create-btn:hover {
+  background: #0056b3;
+}

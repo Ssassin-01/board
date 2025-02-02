@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
-import '../../style/AuthStyles.css';
+import '../../style/ProfileStyles.css';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -23,10 +23,10 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="auth-container">
+    <div className="container">
       <h2 className="auth-title">내 프로필</h2>
       {user ? (
-        <div className="auth-card">
+        <div className="profile-card">
           <p>
             <strong>아이디:</strong> {user.username}
           </p>
@@ -43,6 +43,7 @@ const Profile = () => {
             <button
               className="auth-btn delete-btn"
               onClick={() => navigate('/profile/delete')}
+              style={{ background: '#ff4d4d' }}
             >
               회원 탈퇴
             </button>

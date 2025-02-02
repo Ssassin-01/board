@@ -20,23 +20,34 @@ const PostListPage = () => {
   }, []);
 
   return (
-    <div className="post-container">
-      <h2 className="post-title">📋 게시판</h2>
-      <button className="post-btn" onClick={() => navigate('/posts/create')}>
+    <div className="feed-container">
+      <h2 className="feed-title">📢 피드</h2>
+      <button className="feed-btn" onClick={() => navigate('/posts/create')}>
         새 글 작성
       </button>
-      <ul className="post-list">
+      <div className="feed-list">
         {posts.map((post) => (
-          <li
+          <div
             key={post.id}
-            className="post-item"
+            className="feed-card"
             onClick={() => navigate(`/posts/${post.id}`)}
           >
-            <h3>{post.title}</h3>
-            <p>작성자: {post.author}</p>
-          </li>
+            <div className="feed-header">
+              <img
+                src="/images/default-profile.png"
+                alt="프로필"
+                className="profile-img"
+              />
+              <h3>{post.author}</h3>
+            </div>
+            <p className="feed-content">{post.content}</p>
+            <div className="feed-actions">
+              <button className="like-btn">👍 좋아요</button>
+              <button className="comment-btn">💬 댓글</button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

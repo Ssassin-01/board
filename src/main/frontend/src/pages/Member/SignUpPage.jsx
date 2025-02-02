@@ -28,7 +28,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="container">
       <h2 className="auth-title">회원가입</h2>
       <form className="auth-card" onSubmit={handleSubmit}>
         <input
@@ -37,6 +37,7 @@ const SignUpPage = () => {
           name="username"
           placeholder="아이디"
           onChange={handleChange}
+          required
         />
         <input
           className="auth-input"
@@ -44,6 +45,7 @@ const SignUpPage = () => {
           name="email"
           placeholder="이메일"
           onChange={handleChange}
+          required
         />
         <input
           className="auth-input"
@@ -51,6 +53,7 @@ const SignUpPage = () => {
           name="password"
           placeholder="비밀번호"
           onChange={handleChange}
+          required
         />
         <button className="auth-btn" type="submit">
           회원가입

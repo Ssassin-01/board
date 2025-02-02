@@ -33,7 +33,7 @@ const PostEditPage = () => {
     try {
       await api.put(`/posts/${id}`, formData);
       alert('수정완료!');
-      navigate(`/posts/${id}`);
+      navigate(`/`);
     } catch (error) {
       alert('게시글 수정 실패');
     }

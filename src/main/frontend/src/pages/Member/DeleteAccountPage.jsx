@@ -18,9 +18,13 @@ const DeleteAccountPage = () => {
     }
   };
   return (
-    <div>
+    <div className="container">
       <h2 className="auth-title">회원탈퇴</h2>
-      <button className="auth-btn" onClick={handleDelete}>
+      <button
+        className="auth-btn"
+        style={{ background: '#ff4d4d' }}
+        onClick={handleDelete}
+      >
         탈퇴하기
       </button>
     </div>

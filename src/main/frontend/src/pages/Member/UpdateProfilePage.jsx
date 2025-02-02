@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import api from '../../api/axiosInstance';
+
 import { useNavigate } from 'react-router-dom';
 import '../../style/AuthStyles.css';
+import api from '../../api/axiosInstance';
 
 const UpdateProfilePage = () => {
   const navigate = useNavigate();
@@ -26,22 +27,24 @@ const UpdateProfilePage = () => {
     }
   };
   return (
-    <div className="auth-container">
+    <div className="container">
       <h2 className="auth-title">회원정보 수정</h2>
       <form className="auth-card" onSubmit={handleSubmit}>
         <input
           className="auth-input"
           type="email"
           name="email"
-          placeholder="이메일"
+          placeholder="새로운 이메일"
           onChange={handleChange}
+          required
         />
         <input
           className="auth-input"
           type="password"
           name="password"
-          placeholder="패스워드"
+          placeholder="새로운 비밀번호"
           onChange={handleChange}
+          required
         />
         <button className="auth-btn" type="submit">
           수정하기

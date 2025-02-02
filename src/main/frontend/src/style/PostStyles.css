@@ -1,101 +1,282 @@
-/* 🌟 전체 페이지 공통 스타일 */
-.post-container {
+.container {
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  height: 70vh; /* 화면 전체 높이 사용 */
+  background-color: #18191a; /* 검정 배경 */
+}
+/* 📰 게시글 카드 */
+.post-card {
+  background: #242526;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  margin-bottom: 30px;
+  width: 90%;
+  max-width: 1200px;
+  min-width: 750px;
+  min-height: 600px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+/* ✨ 포스트 헤더 */
+.post-header {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #f4f4f4;
-  padding: 20px;
+  gap: 15px;
+  border-bottom: 1px solid #3a3b3c;
+  padding-bottom: 10px;
 }
 
-/* 🌟 제목 스타일 */
-.post-title {
-  font-size: 28px;
+/* 프로필 카드 스타일 */
+.profile-card {
+  background: #242526;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center; /* 텍스트 가운데 정렬 */
+  color: #e4e6eb;
+  width: 90%;
+  max-width: 400px; /* 최대 너비 */
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover; /* 프로필 이미지 비율 유지 */
+}
+
+.post-author {
+  font-size: 18px;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
+  color: #e4e6eb;
 }
 
-/* 🌟 게시글 목록 스타일 */
-.post-list {
+/* ⋮ 버튼 (옵션 메뉴) */
+.post-options {
+  margin-left: auto;
+  position: relative;
+}
+
+.options-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #b0b3b8;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.options-btn:hover {
+  color: #e4e6eb;
+}
+
+/* 드롭다운 메뉴 */
+.options-dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: #3a3b3c;
+  border: 1px solid #484a4d;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.options-dropdown button {
+  background: none;
+  border: none;
+  color: #e4e6eb;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.options-dropdown button:hover {
+  background: #484a4d;
+}
+
+/* ✨ 포스트 본문 */
+.post-content {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #e4e6eb;
+  overflow: hidden;
+  word-break: break-word; /* 긴 단어를 자동으로 줄바꿈 */
+  text-align: justify;
+  max-height: 300px; /* ✅ 본문 최대 높이 설정 */
+  margin-top: 15px;
+  padding: 10px;
+}
+
+/* ✨ 더보기 버튼 */
+.more-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block;
+  align-self: flex-end;
+}
+
+/* ❤️ 좋아요 & 댓글 버튼 */
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  position: sticky; /* ✅ 상단 고정 */
+  top: 0;
+  background: #242526;
+  z-index: 10;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #3a3b3c;
+}
+
+.like-btn,
+.comment-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s;
+  color: #b0b3b8;
+}
+
+.like-btn:hover {
+  color: red;
+}
+
+.comment-btn:hover {
+  color: blue;
+}
+
+/* 📋 댓글 팝업 */
+.comments-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: #18191a;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  z-index: 1000;
+  color: #e4e6eb;
+}
+
+.comments-popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comments-list {
   list-style: none;
   padding: 0;
-  width: 80%;
-  max-width: 600px;
+  margin: 0;
 }
 
-.post-item {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+.comment-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #3a3b3c;
 }
 
-.post-item:hover {
-  background: #e9ecef;
-}
-
-/* 🌟 게시글 내용 스타일 */
-.post-author {
-  font-size: 14px;
-  color: #555;
-}
-
-.post-content {
-  font-size: 16px;
-  color: #222;
-  margin-top: 10px;
-}
-
-/* 🌟 버튼 공통 스타일 */
-.post-btn {
-  padding: 12px;
-  font-size: 16px;
+.comment-item strong {
   font-weight: bold;
-  color: white;
-  background-color: #007bff;
+  color: #007bff;
+}
+
+/* ✖ 팝업 닫기 버튼 */
+.close-btn {
+  align-self: flex-end;
+  background: none;
   border: none;
-  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #b0b3b8;
+  margin-bottom: 10px;
+}
+
+/* ✨ 반응형 설정 */
+@media (max-width: 768px) {
+  .post-card {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .comments-popup {
+    width: 90%;
+  }
+}
+
+.post-create-container {
+  max-width: 800px;
+  margin: 50px auto;
+  background: #18191a; /* 검정 테마 */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  color: #e4e6eb;
+}
+
+/* 제목 스타일 */
+.post-create-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e4e6eb;
+
+  text-align: center;
+}
+
+/* 입력 필드 스타일 */
+.post-input,
+.post-textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #3a3b3c;
+  border-radius: 8px;
+  background: #3a3b3c;
+  color: #e4e6eb;
+  font-size: 16px;
+}
+
+.post-textarea {
+  min-height: 150px;
+  resize: none;
+}
+
+/* 작성 버튼 */
+.post-submit-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  background: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
-  margin: 5px;
 }
 
-.post-btn:hover {
-  background-color: #0056b3;
-}
-
-/* ❌ 삭제 버튼 스타일 */
-.delete-btn {
-  background-color: #dc3545;
-}
-
-.delete-btn:hover {
-  background-color: #b52b3a;
-}
-
-/* 🌟 게시글 작성/수정 폼 스타일 */
-.post-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  max-width: 500px;
-}
-
-.post-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.post-input:focus {
-  outline: none;
-  border-color: #007bff;
+.post-submit-btn:hover {
+  background: #0056b3;
 }

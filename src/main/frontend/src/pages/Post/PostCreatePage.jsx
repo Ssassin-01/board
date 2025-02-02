@@ -20,16 +20,16 @@ const PostCreatePage = () => {
     try {
       await api.post('/posts/create', formData);
       alert('작성하기 성공');
-      navigate('/posts');
+      navigate('/');
     } catch (error) {
       alert('게시글 작성 실패');
     }
   };
 
   return (
-    <div className="post-container">
-      <h2 className="post-title">새 게시글 작성</h2>
-      <form className="post-form" onSubmit={handleSubmit}>
+    <div className="container">
+      <h2 className="post-create-title">게시물 작성하기</h2>
+      <form className="post-create-form" onSubmit={handleSubmit}>
         <input
           className="post-input"
           type="text"
@@ -38,13 +38,13 @@ const PostCreatePage = () => {
           onChange={handleChange}
         />
         <textarea
-          className="post-input"
+          className="post-textarea"
           name="content"
-          placeholder="내용"
+          placeholder="내용을 입력하세요"
           onChange={handleChange}
         />
-        <button className="post-btn" type="submit">
-          작성
+        <button className="post-submit-btn" type="submit">
+          작성하기
         </button>
       </form>
     </div>

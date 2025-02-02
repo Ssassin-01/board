@@ -1,0 +1,61 @@
+/* 🧑‍🤝‍🧑 프로필 카드 스타일 */
+.profile-card {
+  background: #242526;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+  color: #e4e6eb;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.profile-card p {
+  margin: 10px 0;
+}
+
+.profile-card strong {
+  color: #007bff;
+}
+
+/* ✨ 버튼 스타일 */
+.auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.auth-btn {
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.auth-btn:hover {
+  background: #0056b3;
+}
+
+.delete-btn {
+  background: #ff4d4d;
+}
+
+.delete-btn:hover {
+  background: #b33a3a;
+}
+
+/* 로딩 텍스트 */
+.loading-text {
+  font-size: 16px;
+  color: #b0b3b8;
+  text-align: center;
+  margin-top: 20px;
+}
