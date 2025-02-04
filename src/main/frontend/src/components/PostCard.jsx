@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CommentPopup from './comment/CommentPopup'; // 댓글 팝업 컴포넌트 가져오기
+import CommentPopup from './comment/CommentPopup';
 import '../style/PostStyles.css';
 import api from '../api/axiosInstance';
 
@@ -31,13 +31,13 @@ const PostCard = ({ post }) => {
   };
 
   const handleEditPost = () => {
-    navigate(`/posts/${post.id}/edit`); // 수정 페이지로 이동
+    navigate(`/posts/${post.id}/edit`);
   };
 
   const handleDeletePost = async () => {
     if (window.confirm('정말로 이 게시물을 삭제하시겠습니까?')) {
       try {
-        await api.delete(`/posts/${post.id}`); // 삭제 API 호출
+        await api.delete(`/posts/${post.id}`);
         alert('게시물이 삭제되었습니다.');
         window.location.reload(); // 삭제 후 페이지 새로고침
       } catch (error) {
@@ -75,7 +75,7 @@ const PostCard = ({ post }) => {
       <p
         className={`post-content ${isExpanded ? 'expanded' : ''}`}
         ref={contentRef}
-        onClick={handleNavigateToPost} // 게시글 클릭 시 상세 페이지로 이동
+        onClick={handleNavigateToPost}
         style={{ cursor: 'pointer' }}
       >
         {post.content}
@@ -98,10 +98,7 @@ const PostCard = ({ post }) => {
 
       {/* Comments Popup */}
       {showCommentsPopup && (
-        <CommentPopup
-          postId={post.id}
-          onClose={toggleCommentsPopup} // 팝업 닫기 함수 전달
-        />
+        <CommentPopup postId={post.id} onClose={toggleCommentsPopup} />
       )}
     </div>
   );

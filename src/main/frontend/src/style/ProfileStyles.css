@@ -44,14 +44,6 @@
   background: #0056b3;
 }
 
-.delete-btn {
-  background: #ff4d4d;
-}
-
-.delete-btn:hover {
-  background: #b33a3a;
-}
-
 /* 로딩 텍스트 */
 .loading-text {
   font-size: 16px;

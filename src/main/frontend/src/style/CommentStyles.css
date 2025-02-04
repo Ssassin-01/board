@@ -65,7 +65,7 @@
 }
 
 .comment-submit {
-  background: #007bff;
+  background: #4caf50; /* 초록색 */
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -75,7 +75,7 @@
 }
 
 .comment-submit:hover {
-  background: #0056b3;
+  background: #388e3c; /* hover 시 진한 초록색 */
 }
 
 /* 댓글 리스트 */
@@ -88,33 +88,107 @@
 
 .comment-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* 세로 정렬 */
   padding: 10px;
   border-bottom: 1px solid #3a3b3c;
   color: #e4e6eb;
 }
 
+/* 댓글 본문 및 액션 */
+.comment-content {
+  font-size: 16px;
+  color: #e4e6eb;
+}
+
 .comment-actions {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 8px; /* 버튼 간격 조정 */
+  margin-top: 5px;
 }
 
+/* 댓글 버튼들 */
 .edit-btn,
-.delete-btn {
+.delete-btn,
+.like-btn,
+.reply-toggle-btn {
   background: none;
   border: none;
-  color: #e4e6eb;
-  font-size: 18px;
+  font-size: 12px; /* 버튼 크기 축소 */
+  padding: 6px; /* 버튼 패딩 조정 */
+  border-radius: 6px;
   cursor: pointer;
+  color: #e4e6eb;
 }
 
-.edit-btn:hover {
-  color: #007bff;
+.edit-btn:hover,
+.delete-btn:hover,
+.like-btn:hover,
+.reply-toggle-btn:hover {
+  background: #555; /* hover 시 어두운 회색 */
+  color: #fff;
 }
 
 .delete-btn:hover {
-  color: #ff4d4d;
+  color: #ff4d4d; /* 기본적으로 빨간 글씨 */
+}
+
+.like-btn {
+  color: #ffd700; /* 기본적으로 노란 글씨 */
+}
+
+/* 대댓글 섹션 */
+.reply-section {
+  margin-top: 10px;
+  padding-left: 20px; /* 들여쓰기 */
+  border-left: 2px solid #3a3b3c; /* 대댓글 구분 선 */
+}
+
+/* 대댓글 리스트 */
+.reply-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.reply-item {
+  margin-top: 5px;
+  padding: 5px 0;
+  color: #bdbdbd;
+  font-size: 14px;
+}
+
+/* 대댓글 작성 폼 (리스트 상단에 위치) */
+.reply-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.reply-form textarea {
+  flex: 1;
+  height: 40px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background: #3a3b3c;
+  color: #e4e6eb;
+  font-size: 14px;
+  resize: none;
+}
+
+.reply-submit {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.reply-submit:hover {
+  background: #388e3c;
 }
 
 /* 댓글 수정 입력창 */
@@ -128,9 +202,10 @@
   color: #e4e6eb;
 }
 
+/* 저장/취소 버튼 */
 .save-btn,
 .cancel-btn {
-  background: #007bff;
+  background: #4caf50;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -140,9 +215,13 @@
 }
 
 .save-btn:hover {
-  background: #0056b3;
+  background: #388e3c;
+}
+
+.cancel-btn {
+  background: #f44336;
 }
 
 .cancel-btn:hover {
-  background: #ff4d4d;
+  background: #d32f2f;
 }

@@ -44,7 +44,7 @@ input {
 }
 
 input:focus {
-  outline: 2px solid #007bff;
+  outline: 2px solid #ffffff;
 }
 
 button {
@@ -52,7 +52,7 @@ button {
   padding: 15px;
   border: none;
   border-radius: 10px;
-  background: #007bff;
+  background: #4caf50;
   color: white;
   font-size: 18px;
   font-weight: bold;
@@ -61,7 +61,8 @@ button {
 }
 
 button:hover {
-  background: #0056b3;
+  background: #555;
+  color: #ffffff;
 }
 
 /* 📱 반응형 스타일 */

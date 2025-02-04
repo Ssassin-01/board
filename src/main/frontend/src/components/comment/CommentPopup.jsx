@@ -5,8 +5,10 @@ import '../../style/CommentStyles.css';
 
 const CommentPopup = ({ postId, onClose }) => {
   const [comments, setComments] = useState([]);
-  const [editingCommentId, setEditingCommentId] = useState(null); // 현재 수정 중인 댓글 ID
-  const [updatedContent, setUpdatedContent] = useState(''); // 수정 중인 댓글 내용
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [updatedContent, setUpdatedContent] = useState('');
+  const [expandedCommentId, setExpandedCommentId] = useState(null); // 대댓글 보기 상태
+  const [newReply, setNewReply] = useState(''); // 대댓글 입력값
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -69,6 +71,38 @@ const CommentPopup = ({ postId, onClose }) => {
     }
   };
 
+  const handleReplyToggle = (commentId) => {
+    setExpandedCommentId((prev) => (prev === commentId ? null : commentId));
+  };
+
+  const handleReplySubmit = async (parentId) => {
+    if (!newReply.trim()) {
+      alert('대댓글 내용을 입력하세요!');
+      return;
+    }
+
+    try {
+      const response = await api.post(`/comments/${postId}/create`, {
+        content: newReply,
+        parentId: parentId,
+      });
+
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === parentId
+            ? {
+                ...comment,
+                replies: [response.data, ...(comment.replies || [])],
+              }
+            : comment
+        )
+      );
+      setNewReply(''); // 입력값 초기화
+    } catch (error) {
+      alert(error.response?.data?.message || '대댓글 작성에 실패했습니다.');
+    }
+  };
+
   return (
     <div className="comment-popup">
       <div className="comment-popup-header">
@@ -81,6 +115,7 @@ const CommentPopup = ({ postId, onClose }) => {
       <ul className="comment-list">
         {comments.map((comment) => (
           <li key={comment.id} className="comment-item">
+            {/* 댓글 */}
             {editingCommentId === comment.id ? (
               <>
                 <textarea
@@ -118,8 +153,41 @@ const CommentPopup = ({ postId, onClose }) => {
                   >
                     🗑️
                   </button>
+                  <button className="like-btn">❤️</button>
+                  <button
+                    className="reply-toggle-btn"
+                    onClick={() => handleReplyToggle(comment.id)}
+                  >
+                    ↩️
+                  </button>
                 </span>
               </>
+            )}
+            {/* 대댓글 */}
+            {expandedCommentId === comment.id && (
+              <div className="reply-section">
+                <ul className="reply-list">
+                  {comment.replies &&
+                    comment.replies.map((reply) => (
+                      <li key={reply.id} className="reply-item">
+                        <strong>{reply.author}</strong>: {reply.content}
+                      </li>
+                    ))}
+                </ul>
+                <div className="reply-form">
+                  <textarea
+                    value={newReply}
+                    onChange={(e) => setNewReply(e.target.value)}
+                    placeholder="대댓글 입력..."
+                  />
+                  <button
+                    className="reply-submit"
+                    onClick={() => handleReplySubmit(comment.id)}
+                  >
+                    작성
+                  </button>
+                </div>
+              </div>
             )}
           </li>
         ))}
