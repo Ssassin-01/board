@@ -7,8 +7,8 @@ import api from '../api/axiosInstance';
 const PostCard = ({ post }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const [showCommentsPopup, setShowCommentsPopup] = useState(false); // 댓글 팝업 상태
-  const [showOptions, setShowOptions] = useState(false); // 수정/삭제 메뉴 상태
+  const [showCommentsPopup, setShowCommentsPopup] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const contentRef = useRef(null);
   const navigate = useNavigate();
 
@@ -23,11 +23,11 @@ const PostCard = ({ post }) => {
   };
 
   const toggleCommentsPopup = () => {
-    setShowCommentsPopup((prev) => !prev); // 댓글 팝업 상태 토글
+    setShowCommentsPopup((prev) => !prev);
   };
 
   const toggleOptions = () => {
-    setShowOptions((prev) => !prev); // 수정/삭제 메뉴 토글
+    setShowOptions((prev) => !prev);
   };
 
   const handleEditPost = () => {
@@ -71,7 +71,7 @@ const PostCard = ({ post }) => {
         </div>
       </div>
 
-      {/* Content */}
+      {/* body */}
       <p
         className={`post-content ${isExpanded ? 'expanded' : ''}`}
         ref={contentRef}
@@ -90,7 +90,7 @@ const PostCard = ({ post }) => {
 
       {/* Actions */}
       <div className="post-actions">
-        <button className="like-btn">❤️ 좋아요</button>
+        <button className="likes-btn">❤️ 좋아요</button>
         <button className="comment-btn" onClick={toggleCommentsPopup}>
           💬 댓글
         </button>

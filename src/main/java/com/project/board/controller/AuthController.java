@@ -3,6 +3,7 @@ package com.project.board.controller;
 import com.project.board.dto.CommonResponseDTO;
 import com.project.board.dto.MemberRequestDTO;
 import com.project.board.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<CommonResponseDTO<String>> logout(@RequestParam String username, HttpServletResponse response) {
-        authService.logout(username, response);
+    public ResponseEntity<CommonResponseDTO<String>> logout(HttpServletRequest request, HttpServletResponse response) {
+        authService.logout(request, response);
         return ResponseEntity.ok(CommonResponseDTO.<String>builder()
                 .message("로그아웃 성공!")
                 .status(200)
@@ -34,14 +35,13 @@ public class AuthController {
     }
     @GetMapping("/refresh")
     public ResponseEntity<CommonResponseDTO<String>> refreshAccessToken(
-            @CookieValue("refreshToken") String refreshToken,
-            HttpServletResponse response) {
+            HttpServletRequest request, HttpServletResponse response) {
         try {
-            String newAccessToken = authService.refreshAccessToken(refreshToken, response);
+            String newAccessToken = authService.refreshAccessToken(request, response);
             return ResponseEntity.ok(CommonResponseDTO.<String>builder()
                     .message("Access Token이 성공적으로 재발급되었습니다.")
                     .status(200)
-                    .data(newAccessToken) // Access Token 반환
+                    .data(newAccessToken)
                     .build());
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(401).body(CommonResponseDTO.<String>builder()

@@ -136,7 +136,7 @@ const CommentPopup = ({ postId, onClose }) => {
             ) : (
               <>
                 <span>
-                  <strong>{comment.author}</strong>: {comment.content}
+                  <strong>{comment.author}</strong> : {comment.content}
                 </span>
                 <span className="comment-actions">
                   <button
@@ -144,22 +144,16 @@ const CommentPopup = ({ postId, onClose }) => {
                     onClick={() =>
                       handleEditComment(comment.id, comment.content)
                     }
-                  >
-                    ✏️
-                  </button>
+                  ></button>
                   <button
                     className="delete-btn"
                     onClick={() => handleDeleteComment(comment.id)}
-                  >
-                    🗑️
-                  </button>
-                  <button className="like-btn">❤️</button>
+                  ></button>
+                  <button className="like-btn"></button>
                   <button
                     className="reply-toggle-btn"
                     onClick={() => handleReplyToggle(comment.id)}
-                  >
-                    ↩️
-                  </button>
+                  ></button>
                 </span>
               </>
             )}

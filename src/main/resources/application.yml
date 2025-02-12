@@ -29,9 +29,9 @@ spring:
           min-idle: 0
 
 jwt:
-  secret: bG9uZ19yYW5kb21fbGVuX3NlY3JldF9rZXlfYW5kX2tleV93aXRoX3NwZWNpYWxfY2hhcmFjdGVycw==
-  expiration: 3600000 # 1시간 (밀리초)
-  refresh-expiration: 86400000 # 1일 (밀리초)
+  secret: bXlfbmFtZV9pc19qZW9uZ19oeWVvbl9kb195b3Vfa25vd19tZV9oYWhhaGFoYWhfdmVyeV9uaWNlX2dvb2Rfam9i
+  access-expiration: 3600000 # 1시간 (밀리초)
+  refresh-expiration: 43200000 # 12시간 (밀리초)
 
 logging:
   level:

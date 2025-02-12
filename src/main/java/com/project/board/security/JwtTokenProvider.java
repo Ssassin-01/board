@@ -1,6 +1,8 @@
 package com.project.board.security;
 
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +20,7 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.access-expiration}")
     private long accessTokenExpiration;
 
     @Value("${jwt.refresh-expiration}")
@@ -30,6 +32,11 @@ public class JwtTokenProvider {
     public String generateAccessToken(String username) {
         if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException("사용자 이름이 비어 있습니다.");
+        }
+
+        // 만료 시간 검증
+        if (accessTokenExpiration <= 0) {
+            throw new IllegalStateException("Access Token 만료 시간이 잘못되었습니다. 설정을 확인하세요.");
         }
 
         // 현재 시간
@@ -53,9 +60,21 @@ public class JwtTokenProvider {
      * Refresh Token 생성
      */
     public String generateRefreshToken(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("사용자 이름이 비어 있습니다.");
+        }
+
+        // 만료 시간 검증
+        if (refreshTokenExpiration <= 0) {
+            throw new IllegalStateException("Refresh Token 만료 시간이 잘못되었습니다. 설정을 확인하세요.");
+        }
+
+        // 현재 시간
         Date now = new Date();
+        // 만료 시간 계산
         Date expiryDate = new Date(now.getTime() + refreshTokenExpiration);
 
+        // 로그 추가
         log.debug("Refresh Token 발행: username={}, 발행 시간={}, 만료 시간={}",
                 username, now, expiryDate);
 
@@ -107,4 +126,20 @@ public class JwtTokenProvider {
             throw new IllegalStateException("토큰 검증 중 오류가 발생했습니다.", ex);
         }
     }
+
+
+    public String getTokenFromRequest(HttpServletRequest request) {
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("accessToken".equals(cookie.getName())) {
+                    log.debug("Access Token 추출 성공: {}", cookie.getValue());
+                    return cookie.getValue();
+                }
+            }
+        }
+        log.warn("Access Token 쿠키가 요청에 포함되어 있지 않습니다.");
+        return null;
+    }
 }
+
+

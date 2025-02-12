@@ -146,7 +146,7 @@
   border-bottom: 1px solid #3a3b3c;
 }
 
-.like-btn,
+.likes-btn,
 .comment-btn {
   background: none;
   border: none;
@@ -154,14 +154,6 @@
   cursor: pointer;
   transition: color 0.2s;
   color: #b0b3b8;
-}
-
-.like-btn:hover {
-  color: red;
-}
-
-.comment-btn:hover {
-  color: blue;
 }
 
 /* 📋 댓글 팝업 */
