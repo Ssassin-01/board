@@ -16,8 +16,8 @@ const CommentForm = ({ postId, onCommentAdded }) => {
       const response = await api.post(`/comments/${postId}/create`, {
         content,
       });
-      onCommentAdded(response.data); // 댓글 추가 후 부모 컴포넌트에 알림
-      setContent(''); // 입력 필드 초기화
+      onCommentAdded(response.data);
+      setContent('');
     } catch (error) {
       alert(error.response?.data?.message || '댓글 작성에 실패했습니다.');
     }

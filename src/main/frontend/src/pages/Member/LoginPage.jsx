@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/axiosInstance';
 import '../../style/AuthStyles.css';
+import { useUser } from '../../context/UserContext';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { checkAuthStatus } = useUser(); // ✅ `setIsLoggedIn` 제거
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -19,8 +22,12 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await api.post('/auth/login', formData);
+      console.log('✅ 로그인 성공: 상태 업데이트 시작');
+
+      checkAuthStatus(); // ✅ 로그인 후 서버에서 즉시 로그인 상태 확인
+
       alert('로그인 성공');
-      navigate('/profile');
+      navigate('/');
     } catch (error) {
       alert(error.response?.data?.message || '로그인 실패');
     }

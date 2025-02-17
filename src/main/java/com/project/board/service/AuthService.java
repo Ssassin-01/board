@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -113,6 +116,24 @@ public class AuthService {
 
         return newAccessToken;
     }
+
+    public Map<String, Boolean> checkAuthStatus(HttpServletRequest request) {
+        Map<String, Boolean> response = new HashMap<>();
+        String accessToken = getCookieValue(request, "accessToken");
+
+        if (accessToken != null) {
+            boolean isValid = jwtTokenProvider.validateToken(accessToken);
+            log.info("🔍 Access Token 상태: {}", isValid ? "유효함" : "유효하지 않음");
+            response.put("isLoggedIn", isValid);
+        } else {
+            log.info("⚠ Access Token이 존재하지 않음 (쿠키 없음)");
+            response.put("isLoggedIn", false);
+        }
+
+        return response;
+    }
+
+
 
     private String getCookieValue(HttpServletRequest request, String name) {
         if (request.getCookies() != null) {

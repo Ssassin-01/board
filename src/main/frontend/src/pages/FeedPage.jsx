@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api/axiosInstance'; // ✅ Axios 유지
+import api from '../api/axiosInstance';
 import PostCard from '../components/PostCard';
 import '../style/FeedStyles.css';
 

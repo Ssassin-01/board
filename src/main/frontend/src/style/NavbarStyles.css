@@ -1,6 +1,6 @@
 /* 전체 NavBar 스타일 */
 .navbar {
-  background: #18191a; /* 검정 테마 */
+  background: #18191a; /* 다크 테마 */
   padding: 10px 0; /* 상하 패딩 */
   position: sticky;
   top: 0;
@@ -12,7 +12,6 @@
 .navbar-container {
   width: 100%;
   min-width: 900px;
-  /* max-width: 1200px; 고정된 최대 너비 */
   margin: 0 auto; /* 가운데 정렬 */
   display: flex;
   justify-content: space-between;
@@ -42,14 +41,15 @@
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
+/* 공통 링크 스타일 */
 .navbar-link {
   text-decoration: none;
   color: #e4e6eb;
   font-size: 16px;
-  padding: 10px 15px;
+  padding: 8px 12px;
   border-radius: 8px;
   transition: background 0.3s, color 0.3s;
 }
@@ -57,6 +57,53 @@
 .navbar-link:hover {
   background: #3a3b3c;
   color: #007bff;
+}
+
+/* 로그인 & 회원가입 버튼 */
+.navbar-auth {
+  background: none;
+  color: #ffffff;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #007bff;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.navbar-auth:hover {
+  background: #007bff;
+  color: #ffffff;
+}
+
+/* 프로필 버튼 */
+.navbar-profile {
+  background: none;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.navbar-profile:hover {
+  background: #3a3b3c;
+}
+
+/* 로그아웃 버튼 */
+.navbar-logout {
+  background: none;
+  color: #ff4d4d;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  cursor: pointer;
+  border: 1px solid #ff4d4d;
+}
+
+.navbar-logout:hover {
+  background: #ff4d4d;
+  color: white;
 }
 
 /* 게시물 작성 버튼 (+ 버튼) */
@@ -77,4 +124,23 @@
 
 .navbar-create-btn:hover {
   background: #0056b3;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+  .navbar-container {
+    min-width: auto;
+    flex-direction: column;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-create-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
 }

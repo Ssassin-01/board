@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/axiosInstance';
+import CommentForm from './CommentForm';
 
 const Pr = ({ postId, onClose }) => {
   const [comments, setComments] = useState([]);
@@ -22,7 +23,15 @@ const Pr = ({ postId, onClose }) => {
     <div>
       <div className="header">
         <img src="" alt="" />
+        <h2>댓글</h2>
+        <button onClick={onClose}>❌</button>
       </div>
+      <CommentForm postId={postId} onCommentAdded={handleCommentAdded} />
+      <ul>
+        {comments.map((comment) => (
+          <li key={comment.id}>{}</li>
+        ))}
+      </ul>
     </div>
   );
 };

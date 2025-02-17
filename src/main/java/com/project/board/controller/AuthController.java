@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -51,4 +54,10 @@ public class AuthController {
                     .build());
         }
     }
+
+    @GetMapping("/status")
+    public ResponseEntity<Map<String, Boolean>> checkAuthStatus(HttpServletRequest request) {
+        return ResponseEntity.ok(authService.checkAuthStatus(request));
+    }
+
 }
