@@ -98,4 +98,10 @@ public class MemberService {
                 .status(200)
                 .build();
     }
+
+    public Long getMemberIdByUsername(String username) {
+        return memberRepository.findByUsername(username)
+                .map(Member::getId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+    }
 }

@@ -22,6 +22,9 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int likeCount;
+
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private Member author;

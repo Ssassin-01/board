@@ -123,10 +123,10 @@ public class AuthService {
 
         if (accessToken != null) {
             boolean isValid = jwtTokenProvider.validateToken(accessToken);
-            log.info("🔍 Access Token 상태: {}", isValid ? "유효함" : "유효하지 않음");
+            log.info("Access Token 상태: {}", isValid ? "유효함" : "유효하지 않음");
             response.put("isLoggedIn", isValid);
         } else {
-            log.info("⚠ Access Token이 존재하지 않음 (쿠키 없음)");
+            log.info("Access Token이 존재하지 않음 (쿠키 없음)");
             response.put("isLoggedIn", false);
         }
 

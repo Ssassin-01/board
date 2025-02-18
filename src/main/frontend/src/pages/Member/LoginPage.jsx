@@ -6,7 +6,7 @@ import { useUser } from '../../context/UserContext';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { checkAuthStatus } = useUser(); // ✅ `setIsLoggedIn` 제거
+  const { setIsLoggedIn, checkAuthStatus } = useUser();
 
   const [formData, setFormData] = useState({
     username: '',
@@ -22,10 +22,8 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await api.post('/auth/login', formData);
-      console.log('✅ 로그인 성공: 상태 업데이트 시작');
-
-      checkAuthStatus(); // ✅ 로그인 후 서버에서 즉시 로그인 상태 확인
-
+      setIsLoggedIn(true); // ✅ 상태 즉시 변경
+      checkAuthStatus(); // ✅ 로그인 상태 즉시 확인
       alert('로그인 성공');
       navigate('/');
     } catch (error) {
