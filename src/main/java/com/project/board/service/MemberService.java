@@ -52,7 +52,7 @@ public class MemberService {
         return CommonResponseDTO.<MemberDTO>builder()
                 .message("회원 정보 조회 성공")
                 .status(200)
-                .data(new MemberDTO(member.getId(), member.getUsername(),member.getEmail(),member.getPassword()))
+                .data(new MemberDTO(member.getId(), member.getUsername(),member.getEmail(),member.getPassword(), member.getProfileImageURL()))
                 .build();
     }
 
@@ -83,7 +83,7 @@ public class MemberService {
         return CommonResponseDTO.<MemberDTO>builder()
                 .message("회원정보 수정 완료")
                 .status(200)
-                .data(new MemberDTO(res.getId(), res.getUsername(), res.getEmail(), res.getPassword()))
+                .data(new MemberDTO(res.getId(), res.getUsername(), res.getEmail(), res.getPassword(), res.getProfileImageURL()))
                 .build();
     }
 
