@@ -3,20 +3,37 @@ import { useNavigate } from 'react-router-dom';
 import CommentPopup from './comment/CommentPopup';
 import '../style/PostStyles.css';
 import api from '../api/axiosInstance';
+import {
+  likePost,
+  unlikePost,
+  checkLikedStatus,
+  getLikeCount,
+} from '../api/likeService';
+import { useUser } from '../context/UserContext';
 
 const PostCard = ({ post }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const [showCommentsPopup, setShowCommentsPopup] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.likeCount || 0);
   const contentRef = useRef(null);
   const navigate = useNavigate();
+  const { isLoggedIn } = useUser(); // ✅ 로그인 상태 가져오기
 
   useEffect(() => {
     if (contentRef.current) {
       setIsOverflowing(contentRef.current.scrollHeight > 300); // 본문 높이 초과 여부 확인
     }
   }, [post.content]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      checkLikedStatus(post.id).then(setIsLiked);
+    }
+    getLikeCount(post.id).then(setLikeCount);
+  }, [post.id, isLoggedIn]);
 
   const handleNavigateToPost = () => {
     navigate(`/posts/${post.id}`);
@@ -43,6 +60,28 @@ const PostCard = ({ post }) => {
       } catch (error) {
         alert('게시물 삭제에 실패했습니다.');
       }
+    }
+  };
+
+  // ✅ 좋아요 버튼 클릭 핸들러
+  const handleLikeToggle = async () => {
+    if (!isLoggedIn) {
+      alert('로그인 후 이용해주세요!');
+      return;
+    }
+
+    try {
+      if (isLiked) {
+        await unlikePost(post.id);
+        setIsLiked(false);
+        setLikeCount((prev) => Math.max(0, prev - 1));
+      } else {
+        await likePost(post.id);
+        setIsLiked(true);
+        setLikeCount((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.error('좋아요 처리 중 오류 발생:', error);
     }
   };
 
@@ -90,7 +129,12 @@ const PostCard = ({ post }) => {
 
       {/* Actions */}
       <div className="post-actions">
-        <button className="likes-btn">❤️ 좋아요</button>
+        <button
+          className={`likes-btn ${isLiked ? 'liked' : ''}`}
+          onClick={handleLikeToggle}
+        >
+          {isLiked ? '❤️' : '🤍'} {likeCount}
+        </button>
         <button className="comment-btn" onClick={toggleCommentsPopup}>
           💬 댓글
         </button>

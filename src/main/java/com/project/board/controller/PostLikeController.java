@@ -41,7 +41,7 @@ public class PostLikeController {
         return ResponseEntity.ok(Map.of("likes", "좋아요 취소 성공"));
     }
 
-    @GetMapping("/likes")
+    @GetMapping("/likes/counts")
     public ResponseEntity<Map<String, Integer>> countLikes(@PathVariable Long postId) {
         int count = postLikeService.countLikes(postId);
         return ResponseEntity.ok(Map.of("likes", count));

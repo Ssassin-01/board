@@ -54,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/tests/create", "/api/auth/login", "/api/tests/posts", "/api/tests/posts", "/api/tests/comments/**").permitAll()
                         .requestMatchers("/api/posts", "/api/members/signup", "/api/members/login", "/api/comments/**").permitAll()
                         .requestMatchers("/api/test/public", "/api/auth/refresh").permitAll()
+                        .requestMatchers("/api/posts/*/likes/counts").permitAll()
                         .requestMatchers("/api/test/protected").authenticated()
                         .anyRequest().authenticated()
                 )

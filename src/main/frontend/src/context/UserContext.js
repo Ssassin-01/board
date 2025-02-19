@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
         // ✅ 403 (Unauthorized)일 경우, 조용히 처리 (콘솔 로그 제거)
         setIsLoggedIn(false);
       } else {
-        // console.error('🚨 로그인 상태 확인 중 오류 발생:', error);
+        //  
       }
     }
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 import AppRoutes from './routes/AppRoutes';
-import { UserProvider } from './context/UserContext'; // ✅ UserProvider 추가
+import { UserProvider } from './context/UserContext'; 
 
 function App() {
   return (
