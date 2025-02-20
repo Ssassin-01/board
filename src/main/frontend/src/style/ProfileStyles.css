@@ -6,7 +6,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   max-width: 400px;
   width: 100%;
-  text-align: left;
+  text-align: center; /* 📌 중앙 정렬 */
   color: #e4e6eb;
   font-size: 18px;
   line-height: 1.8;
@@ -20,16 +20,32 @@
   color: #007bff;
 }
 
+/* 🖼 프로필 이미지 컨테이너 */
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3a3b3c; /* 테두리 추가 */
+}
+
 /* ✨ 버튼 스타일 */
 .auth-buttons {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .auth-btn {
-  padding: 15px;
+  padding: 12px;
   border: none;
   border-radius: 10px;
   background: #007bff;
@@ -44,7 +60,71 @@
   background: #0056b3;
 }
 
-/* 로딩 텍스트 */
+/* 🔽 프로필 이미지 업로드/삭제 버튼 */
+.profile-image-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.upload-btn,
+.delete-btn {
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+}
+
+.upload-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.delete-btn {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* 📑 입력 필드 */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #3a3b3c;
+  font-size: 16px;
+  background: #3a3b3c;
+  color: white;
+}
+
+.profile-input::placeholder {
+  color: #b0b3b8;
+}
+
+/* 🚀 회원 정보 수정 버튼 */
+.profile-update-btn {
+  background: #007bff;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+}
+
+.profile-update-btn:hover {
+  background: #0056b3;
+}
+
+/* 🕐 로딩 텍스트 */
 .loading-text {
   font-size: 16px;
   color: #b0b3b8;

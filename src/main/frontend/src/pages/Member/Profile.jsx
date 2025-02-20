@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import { getProfileImage } from '../../api/ProfileApi';
 import '../../style/ProfileStyles.css';
 
 const Profile = () => {
@@ -27,12 +28,22 @@ const Profile = () => {
       <h2 className="auth-title">내 프로필</h2>
       {user ? (
         <div className="profile-card">
+          {/* ✅ 프로필 이미지 표시 */}
+          <div className="profile-image-container">
+            <img
+              src={getProfileImage(user.profileImageURL)}
+              alt="프로필"
+              className="profile-image"
+            />
+          </div>
+
           <p>
             <strong>아이디:</strong> {user.username}
           </p>
           <p>
             <strong>이메일:</strong> {user.email}
           </p>
+
           <div className="auth-buttons">
             <button
               className="auth-btn"

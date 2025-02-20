@@ -93,10 +93,18 @@ public class MemberController {
         Path filePath = Paths.get("uploads", filename).normalize();
         File file = filePath.toFile();
 
-        if(!file.exists() || !Files.probeContentType(filePath).startsWith("image")) {
-            throw new IllegalArgumentException("유효하지 않은 이미지 입니다.");
+        // ✅ 요청한 파일이 존재하지 않으면 기본 프로필 이미지 반환
+        if (!file.exists()) {
+            filePath = Paths.get("uploads/default-profile.png").normalize();
+            file = filePath.toFile();
         }
 
+        // ✅ 파일 유형 검증 (이미지 파일인지 확인)
+        if (!Files.probeContentType(filePath).startsWith("image")) {
+            throw new IllegalArgumentException("유효하지 않은 이미지 파일입니다.");
+        }
+
+        // ✅ 이미지 리소스 반환
         Resource resource = new UrlResource(file.toURI());
 
         return ResponseEntity.ok()
@@ -104,6 +112,7 @@ public class MemberController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getName() + "\"")
                 .body(resource);
     }
+
 
     @DeleteMapping("/profile-image")
     public ResponseEntity<Map<String, String>> deleteProfileImage(@AuthenticationPrincipal UserDetails userDetails) throws IOException {
