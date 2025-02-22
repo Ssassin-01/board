@@ -63,7 +63,7 @@ public class ProfileImageService {
         }
 
         file.transferTo(filePath.toFile());
-        log.info("📁 파일이 저장되었습니다: {}", filePath);
+        log.info("파일이 저장되었습니다: {}", filePath);
 
         //사용자 프로필 이미지 경로 저장
         String imageURL = "/api/members/profile-image/" + filename;
@@ -83,9 +83,9 @@ public class ProfileImageService {
             Path filePath = Paths.get(UPLOAD_DIR, filename).normalize();
             if (Files.exists(filePath)) {
                 Files.delete(filePath);
-                log.info("🗑️ 기존 프로필 이미지 삭제: {}", filePath);
+                log.info("🗑기존 프로필 이미지 삭제: {}", filePath);
             } else {
-                log.warn("🚫 삭제할 파일이 존재하지 않습니다: {}", filePath);
+                log.warn("삭제할 파일이 존재하지 않습니다: {}", filePath);
             }
             member.setProfileImageURL(null);
             memberRepository.save(member);
