@@ -9,6 +9,7 @@ import {
   checkLikedStatus,
   getLikeCount,
 } from '../api/likeService';
+import { getProfileImage } from '../api/ProfileApi'; // ✅ 프로필 이미지 불러오는 함수 추가
 import { useUser } from '../context/UserContext';
 
 const PostCard = ({ post }) => {
@@ -18,6 +19,9 @@ const PostCard = ({ post }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likeCount || 0);
+  const [profileImageURL, setProfileImageURL] = useState(
+    '/default-profile.png'
+  ); // ✅ 기본 프로필 이미지 설정
   const contentRef = useRef(null);
   const navigate = useNavigate();
   const { isLoggedIn } = useUser(); // ✅ 로그인 상태 가져오기
@@ -34,6 +38,13 @@ const PostCard = ({ post }) => {
     }
     getLikeCount(post.id).then(setLikeCount);
   }, [post.id, isLoggedIn]);
+
+  // ✅ 작성자의 프로필 이미지 가져오기
+  useEffect(() => {
+    if (post.authorProfileImage) {
+      setProfileImageURL(getProfileImage(post.authorProfileImage)); // ✅ 프로필 이미지 설정
+    }
+  }, [post.authorProfileImage]);
 
   const handleNavigateToPost = () => {
     navigate(`/posts/${post.id}`);
@@ -90,7 +101,7 @@ const PostCard = ({ post }) => {
       {/* Header */}
       <div className="post-header">
         <img
-          src="https://images.unsplash.com/photo-1738363436637-ee6f4a910715?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8"
+          src={profileImageURL} // ✅ 사용자 프로필 이미지 적용
           alt="프로필"
           className="profile-img"
         />
